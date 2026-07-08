@@ -18,7 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableMethodSecurity
-@RequiredArgsConstructor
+@RequiredArgsConstructor    
 public class WebSecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
@@ -44,15 +44,20 @@ public class WebSecurityConfig {
                                 "/api/auth/signup",
                                 "/api/auth/login",
                                 "/ws/**",
-                                "/api/payments/vnpay/callback")
+                                "/api/payments/vnpay/callback",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html")
                         .permitAll()
 
                         // ========== PUBLIC GET ONLY ==========
                         .requestMatchers(HttpMethod.GET,
-                                "/api/products/**",
-                                "/api/categories/**",
-                                "/api/promotions/**",
-                                "/api/tables/**")
+                                "/api/product", "/api/product/**",
+                                "/api/products", "/api/products/**",
+                                "/api/categories", "/api/categories/**",
+                                "/api/promotions", "/api/promotions/**",
+                                "/api/promotion-products", "/api/promotion-products/**",
+                                "/api/tables", "/api/tables/**")
                         .permitAll()
 
                         // ========== ⚠️ CRITICAL: ORDER ITEMS MUST BE FIRST ==========
@@ -64,9 +69,9 @@ public class WebSecurityConfig {
                         .hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPLOYEE", "ROLE_STAFF", "ROLE_USER")
 
                         // ========== PRODUCTS (WRITE operations - ADMIN only) ==========
-                        .requestMatchers(HttpMethod.POST, "/api/products/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/product/**", "/api/products/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/product/**", "/api/products/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/product/**", "/api/products/**").hasAuthority("ROLE_ADMIN")
 
                         // ========== CATEGORIES (WRITE operations - ADMIN only) ==========
                         .requestMatchers(HttpMethod.POST, "/api/categories/**").hasAuthority("ROLE_ADMIN")
