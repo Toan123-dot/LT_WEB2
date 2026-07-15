@@ -1,6 +1,7 @@
 package com.truongquoctoan.example01.dto;
 
 import lombok.*;
+
 import java.math.BigDecimal;
 
 @Getter
@@ -9,12 +10,23 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder
 public class OrderDto {
+
     private Long id;
+
     private Long tableId;
+
     private Long employeeId;
+
     private Long userId;
+
     private String status;
+
     private BigDecimal totalAmount;
+
     private Long promotionId;
+
+    // ✅ Thêm tên khách
+    private String customerName;
+
     private String notes;
 }
